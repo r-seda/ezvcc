@@ -1,0 +1,45 @@
+# .NET / Visual Studio
+bin/
+obj/
+[Bb]uild/
+[Bb]uildOutput/
+[Ll]og/
+[Ll]ogs/
+.vs/
+*.user
+*.suo
+*.userprefs
+*.userosscache
+*.sln.docstates
+*.vbw
+
+# Rider / ReSharper
+.idea/
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+!**/packages/build/
+*.nuget.props
+*.nuget.targets
+
+# Publish output
+publish/
+PublishProfiles/
+*.[Pp]ublish.xml
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Editor temp
+*.swp
+*~
+*.tmp
