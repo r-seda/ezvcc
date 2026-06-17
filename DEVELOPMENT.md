@@ -1,6 +1,6 @@
 # Development Guide — ezvcc
 
-ezvcc を開発するための環境構築・ビルド・デバッグ手順。エンドユーザー向けの利用方法は [README.md](./README.md)、プロジェクト全体の設計は [PLANNING.md](./PLANNING.md) を参照。
+ezvcc を開発するための環境構築・ビルド・デバッグ手順。エンドユーザー向けの利用方法は [README.md](./README.md)、プロジェクト全体の設計は [PLANNING.md](./PLANNING.md)、開発タスクのトラック別進捗は [ROADMAP.md](./ROADMAP.md) を参照。
 
 ---
 
@@ -189,9 +189,10 @@ git push
 
 ```
 ezvcc/
-├── PLANNING.md              プロジェクト設計・要件・マイルストーン
+├── PLANNING.md              プロジェクト設計・要件
 ├── README.md                エンドユーザー向け利用ガイド
 ├── DEVELOPMENT.md           本ファイル
+├── ROADMAP.md               開発ロードマップ(トラック別ステージ管理)
 ├── .gitignore
 ├── ezvcc.sln                Visual Studio ソリューション
 └── src/
@@ -206,7 +207,7 @@ ezvcc/
             └── AudioLevelEventArgs.cs レベル通知用イベント引数
 ```
 
-将来のフェーズで以下が追加予定(PLANNING.md §10 参照):
+将来のフェーズで以下が追加予定([ROADMAP.md](./ROADMAP.md) 参照):
 
 - `src/ezvcc.App/Services/` — `SettingsService`, `AudioDeviceService` 等
 - `src/ezvcc.App/Audio/PitchProcessor.cs` — SoundTouch ラッパー (Phase 2)
@@ -303,7 +304,7 @@ src\ezvcc.App\bin\Release\net8.0-windows\win-x64\publish\ezvcc.exe
 4. `ezvcc.exe` をアセットとしてアップロード
 5. Release notes に変更点を記載
 
-将来的には GitHub Actions Windows ランナーで自動化する想定(PLANNING.md §6 Phase 4)。
+将来的には GitHub Actions Windows ランナーで自動化する想定([ROADMAP.md](./ROADMAP.md) の 5-B / 5-C)。
 
 ### 10.5 Phase 4 以降の検討事項
 
@@ -319,4 +320,5 @@ src\ezvcc.App\bin\Release\net8.0-windows\win-x64\publish\ezvcc.exe
 ## 関連ドキュメント
 
 - [README.md](./README.md) — エンドユーザー向け使い方
-- [PLANNING.md](./PLANNING.md) — 設計・要件・マイルストーン
+- [PLANNING.md](./PLANNING.md) — 設計・要件
+- [ROADMAP.md](./ROADMAP.md) — 開発ロードマップ(トラック別ステージ管理)
