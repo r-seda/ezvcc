@@ -258,18 +258,61 @@ ezvcc/
 
 ---
 
-## 10. リリースビルド・配布(将来)
+## 10. リリースビルド・配布
 
-Phase 4 で本格的なリリース手順を整えるが、現時点で試したい場合:
+### 10.1 方針
+
+ezvcc は **単一exe (self-contained single-file)** で配布する。理由:
+
+- ユーザーは `.NET ランタイム` を別途インストールせずに使える
+- ダウンロード → ダブルクリックで即起動の体験
+- アンインストールはexe削除のみで完結し、他アプリの環境に影響しない
+
+トレードオフ: 配布サイズが80MB前後と大きい。問題になったら framework-dependent 配布(zip)に切り替え可能。
+
+### 10.2 リリースexeのビルド
+
+`ezvcc.App.csproj` には PublishSingleFile / SelfContained / RuntimeIdentifier=win-x64 / EnableCompressionInSingleFile などが既に設定済み。コマンド側で追加引数は不要:
 
 ```powershell
-dotnet publish src/ezvcc.App -c Release -r win-x64 --self-contained false -o publish/
+dotnet publish src/ezvcc.App -c Release
 ```
 
-- `--self-contained false`: .NET 8 Desktop ランタイムがユーザー側に必要
-- `--self-contained true`: ランタイム同梱(配布物が大きくなる代わりにユーザーは追加インストール不要)
+成果物:
 
-`publish/` 配下に `ezvcc.exe` と依存DLLが出力される。
+```
+src\ezvcc.App\bin\Release\net8.0-windows\win-x64\publish\ezvcc.exe
+```
+
+この `ezvcc.exe` 1ファイルを GitHub Releases にアップロードする。
+
+### 10.3 動作確認(リリースexe)
+
+別のWindows端末(できれば.NET未インストール環境)にコピーして:
+
+1. ダブルクリックで起動するか
+2. SmartScreen 警告が出ても「詳細情報 → 実行」で動くか
+3. マイク入力 → スピーカー出力が機能するか
+4. exeを削除した後、`%LOCALAPPDATA%\Temp\.net\ezvcc\` を確認し、影響範囲が局所的か
+
+### 10.4 GitHub Releases への公開手順(将来)
+
+1. `main` ブランチに対象コミットがあることを確認
+2. ローカルでタグを作成: `git tag v0.x.y && git push origin v0.x.y`
+3. GitHub Releases ページから新規 Release を作成、タグを選択
+4. `ezvcc.exe` をアセットとしてアップロード
+5. Release notes に変更点を記載
+
+将来的には GitHub Actions Windows ランナーで自動化する想定(PLANNING.md §6 Phase 4)。
+
+### 10.5 Phase 4 以降の検討事項
+
+| 項目 | メモ |
+|------|------|
+| **コード署名** | SmartScreen警告を消すには EV または OV のコードサイニング証明書が必要。年間数万円〜 |
+| **Inno Setup での Setup.exe 化** | スタートメニュー登録 + アンインストーラ付きの「Windows らしい」インストーラ。.iss スクリプトを作成し、`ISCC.exe` でコンパイル |
+| **自動更新** | Velopack / Squirrel.Windows で「起動時に新バージョンを取りに行く」仕組みを後付け可能 |
+| **MSIX 配布 / Microsoft Store** | ストア審査 + パッケージ署名が必要。今は対象外 |
 
 ---
 

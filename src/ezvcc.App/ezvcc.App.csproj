@@ -10,6 +10,14 @@
     <AssemblyName>ezvcc</AssemblyName>
   </PropertyGroup>
 
+  <PropertyGroup Label="Publish (single-file self-contained .exe)">
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
